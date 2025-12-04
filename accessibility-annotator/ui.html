@@ -1,0 +1,151 @@
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    padding: 16px;
+    background-color: #ffffff;
+    color: #333;
+    overflow-y: auto;
+  }
+  h2 {
+    font-size: 18px;
+    margin-top: 0;
+    padding-bottom: 5px;
+  }
+  .description {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  .annotation-list {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+  }
+  .annotation-item {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    border: 1px solid #0079C8;
+    color: #0079C8;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fcfcfc;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .annotation-item:hover {
+    background-color: #e6f0ff; 
+    border-color: #0652AE;
+  }
+  .annotation-item strong {
+    color: #0079C8;
+    font-weight: 600;
+    display: block;
+  }
+  .annotation-item:hover strong {
+    color: #0652AE;
+  }
+  .annotation-item small {
+    display: block;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+  .header-category {
+    font-weight: bold;
+    color: #444; 
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+
+<h2>Accessibility annotations</h2>
+<p class="description">Select a layer to add a annotation from the list using Figma's native annotation feature.</p>
+
+<div class="header-category">Heading Markup</div>
+<ul class="annotation-list">
+  <li class="annotation-item" data-text="Markup heading as H1"><strong>Heading 1</strong></li>
+  <li class="annotation-item" data-text="Markup heading as H2"><strong>Heading 2</strong></li>
+  <li class="annotation-item" data-text="Markup heading as H3"><strong>Heading 3</strong></li>
+  <li class="annotation-item" data-text="Markup heading as H4"><strong>Heading 4</strong></li>
+  <li class="annotation-item" data-text="Markup heading as H5"><strong>Heading 5</strong></li>
+  <li class="annotation-item" data-text="Markup heading as H6"><strong>Heading 6</strong></li>
+</ul>
+
+<div class="header-category">Alt Text Annotations</div>
+<ul class="annotation-list">
+  <li class="annotation-item" data-text="Text alternative for image: &#10;&quot;Add text here&quot;">
+    <strong>Image alt text</strong>
+    <small>Text alternative for image: Add descriptive text here</small>
+  </li>
+  <li class="annotation-item" data-text="Text alternative for icon: &#10;&quot;Add text here&quot;">
+    <strong>Icon alt text</strong>
+    <small>Text alternative for icon: Add text here (unless decorative)</small>
+  </li>
+  <li class="annotation-item" data-text="Text alternative for button: &#10;&quot;Add text here&quot;">
+    <strong>Button alt text</strong>
+    <small>Text alternative for button: Add text here (describes its action)</small>
+  </li>
+  <li class="annotation-item" data-text="This icon is decorative and should be hidden from assistive technologies (eg. screen readers)">
+    <strong>Decorative icon</strong>
+    <small>This icon should be hidden from assistive technologies (e.g. screen readers).</small>
+  </li>
+</ul>
+
+<div class="header-category">Navigation & Focus Management</div>
+<ul class="annotation-list">
+  <li class="annotation-item" data-text="On click, move users to page content.&#10;- Skip to content&#10;- Skip to chat&#10;- Skip to footer">
+    <strong>Skip to content</strong>
+    <small>On click, move users to page content.</small>
+  </li>
+  <li class="annotation-item" data-text="On click of this link, move focus to the modal. When this modal is closed, return focus to this element">
+    <strong>Manage focus</strong>
+    <small>On click, move focus to modal. When modal is closed, return focus here.</small>
+  </li>
+  <li class="annotation-item" data-text="Link opens in a new tab">
+    <strong>Link opens in a new tab</strong>
+    <small>Tell user that this link will open a new browser tab.</small>
+  </li>
+  <li class="annotation-item" data-text="Button opens in a new tab">
+    <strong>Button opens in a new tab</strong>
+    <small>Tell user that this button will open a new browser tab.</small>
+  </li>
+</ul>
+
+<div class="header-category">Screen Reader (ARIA) Annotations</div>
+<ul class="annotation-list">
+  <li class="annotation-item" data-text="This is a live region. A notification must be sent to a screen reader via a live region.">
+    <strong>Live region notification</strong>
+    <small>A dynamic notification (e.g., success message) must use a live region.</small>
+  </li>
+  <li class="annotation-item" data-text="Screen readers must read this content aloud">
+    <strong>Screen readers must read aloud</strong>
+    <small>Ensure this specific content is exposed to and read aloud by screen readers.</small>
+  </li>
+   <li class="annotation-item" data-text="Screen readers must ignore this content">
+    <strong>Screen readers must ignore</strong>
+    <small>Ensure this specific content is ignored by screen readers.</small>
+  </li>
+</ul>
+
+<script>
+  document.querySelectorAll('.annotation-item').forEach(item => {
+    item.onclick = function() {
+      const annotationText = this.getAttribute('data-text');
+
+      // Send the selected text back to code.ts
+      parent.postMessage({
+        pluginMessage: {
+          type: 'create-annotation', 
+          text: annotationText       
+        }
+      }, '*');
+    };
+  });
+</script>
