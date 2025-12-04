@@ -10,13 +10,65 @@
   h2 {
     font-size: 18px;
     margin-top: 0;
-    padding-bottom: 5px;
   }
   .description {
     font-size: 14px;
     line-height: 1.4;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
+
+  /* --- Search UI --- */
+  .search-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .search-group {
+    flex: 1;
+    display: grid;
+    gap: 6px;
+  }
+  .search-label {
+    font-size: 13px;
+    color: #444;
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #c7c7c7;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .search-input:focus {
+    border-color: #0079C8;
+    box-shadow: 0 0 0 3px rgba(0, 121, 200, 0.15);
+  }
+  .clear-btn {
+    align-self: flex-end;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    border: 1px solid #c7c7c7;
+    background: #f7f7f7;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+  }
+  .clear-btn:hover {
+    background-color: #efefef;
+    border-color: #9b9b9b;
+  }
+  .results-meta {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
   .annotation-list {
     list-style: none;
     padding: 8px 0;
@@ -34,16 +86,17 @@
     transition: background-color 0.15s ease, border-color 0.15s ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
-  .annotation-item:hover {
-    background-color: #e6f0ff; 
+  .annotation-item:hover, .annotation-item:focus {
+    background-color: #e6f0ff;
     border-color: #0652AE;
+    outline: none;
   }
   .annotation-item strong {
     color: #0079C8;
     font-weight: 600;
     display: block;
   }
-  .annotation-item:hover strong {
+  .annotation-item:hover strong, .annotation-item:focus strong {
     color: #0652AE;
   }
   .annotation-item small {
@@ -55,7 +108,7 @@
   }
   .header-category {
     font-weight: bold;
-    color: #444; 
+    color: #444;
     margin-top: 20px;
     margin-bottom: 10px;
     padding-bottom: 3px;
@@ -63,89 +116,204 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
+
+  /* Hidden state helpers */
+  .hidden { display: none !important; }
+
+  /* No results message */
+  .no-results {
+    padding: 10px 12px;
+    border: 1px dashed #c7c7c7;
+    color: #666;
+    border-radius: 4px;
+    margin-top: 6px;
+    font-size: 14px;
+  }
 </style>
 
 <h2>Accessibility annotations</h2>
-<p class="description">Select a layer to add a annotation from the list using Figma's native annotation feature.</p>
+<p class="description">Select a layer to add an annotation from the list using Figma's native annotation feature.</p>
+
+<!-- Search -->
+<div class="search-bar">
+  <div class="search-group">
+    <label for="annotation-search" class="search-label">Filter by keyword</label>
+    <input
+      id="annotation-search"
+      class="search-input"
+      type="text"
+      placeholder=""
+      aria-describedby="results-count"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </div>
+  <button type="button" class="clear-btn" id="clear-search" aria-label="Clear search and show all">Clear</button>
+</div>
+<div id="results-count" class="results-meta" aria-live="polite">Showing all annotations</div>
 
 <div class="header-category">Heading Markup</div>
-<ul class="annotation-list">
-  <li class="annotation-item" data-text="Markup heading as H1"><strong>Heading 1</strong></li>
-  <li class="annotation-item" data-text="Markup heading as H2"><strong>Heading 2</strong></li>
-  <li class="annotation-item" data-text="Markup heading as H3"><strong>Heading 3</strong></li>
-  <li class="annotation-item" data-text="Markup heading as H4"><strong>Heading 4</strong></li>
-  <li class="annotation-item" data-text="Markup heading as H5"><strong>Heading 5</strong></li>
-  <li class="annotation-item" data-text="Markup heading as H6"><strong>Heading 6</strong></li>
+<ul class="annotation-list" data-category="Heading Markup">
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H1"><strong>Heading 1</strong></li>
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H2"><strong>Heading 2</strong></li>
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H3"><strong>Heading 3</strong></li>
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H4"><strong>Heading 4</strong></li>
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H5"><strong>Heading 5</strong></li>
+  <li class="annotation-item" tabindex="0" data-text="Markup heading as H6"><strong>Heading 6</strong></li>
 </ul>
 
 <div class="header-category">Alt Text Annotations</div>
-<ul class="annotation-list">
-  <li class="annotation-item" data-text="Text alternative for image: &#10;&quot;Add text here&quot;">
+<ul class="annotation-list" data-category="Alt Text Annotations">
+  <li class="annotation-item" tabindex="0" data-text="Text alternative for image: &#10;&quot;Add text here&quot;">
     <strong>Image alt text</strong>
     <small>Text alternative for image: Add descriptive text here</small>
   </li>
-  <li class="annotation-item" data-text="Text alternative for icon: &#10;&quot;Add text here&quot;">
+  <li class="annotation-item" tabindex="0" data-text="Text alternative for icon: &#10;&quot;Add text here&quot;">
     <strong>Icon alt text</strong>
     <small>Text alternative for icon: Add text here (unless decorative)</small>
   </li>
-  <li class="annotation-item" data-text="Text alternative for button: &#10;&quot;Add text here&quot;">
+  <li class="annotation-item" tabindex="0" data-text="Text alternative for button: &#10;&quot;Add text here&quot;">
     <strong>Button alt text</strong>
     <small>Text alternative for button: Add text here (describes its action)</small>
   </li>
-  <li class="annotation-item" data-text="This icon is decorative and should be hidden from assistive technologies (eg. screen readers)">
+  <li class="annotation-item" tabindex="0" data-text="This icon is decorative and should be hidden from assistive technologies (eg. screen readers)">
     <strong>Decorative icon</strong>
     <small>This icon should be hidden from assistive technologies (e.g. screen readers).</small>
   </li>
 </ul>
 
-<div class="header-category">Navigation & Focus Management</div>
-<ul class="annotation-list">
-  <li class="annotation-item" data-text="On click, move users to page content.&#10;- Skip to content&#10;- Skip to chat&#10;- Skip to footer">
+<div class="header-category">Navigation &amp; Focus Management</div>
+<ul class="annotation-list" data-category="Navigation &amp; Focus Management">
+  <li class="annotation-item" tabindex="0" data-text="On click, move users to page content.&#10;- Skip to content&#10;- Skip to chat&#10;- Skip to footer">
     <strong>Skip to content</strong>
     <small>On click, move users to page content.</small>
   </li>
-  <li class="annotation-item" data-text="On click of this link, move focus to the modal. When this modal is closed, return focus to this element">
+  <li class="annotation-item" tabindex="0" data-text="On click of this link, move focus to the modal. When this modal is closed, return focus to this element">
     <strong>Manage focus</strong>
     <small>On click, move focus to modal. When modal is closed, return focus here.</small>
   </li>
-  <li class="annotation-item" data-text="Link opens in a new tab">
+  <li class="annotation-item" tabindex="0" data-text="Link opens in a new tab">
     <strong>Link opens in a new tab</strong>
     <small>Tell user that this link will open a new browser tab.</small>
   </li>
-  <li class="annotation-item" data-text="Button opens in a new tab">
+  <li class="annotation-item" tabindex="0" data-text="Button opens in a new tab">
     <strong>Button opens in a new tab</strong>
     <small>Tell user that this button will open a new browser tab.</small>
   </li>
 </ul>
 
 <div class="header-category">Screen Reader (ARIA) Annotations</div>
-<ul class="annotation-list">
-  <li class="annotation-item" data-text="This is a live region. A notification must be sent to a screen reader via a live region.">
+<ul class="annotation-list" data-category="Screen Reader (ARIA) Annotations">
+  <li class="annotation-item" tabindex="0" data-text="This is a live region. A notification must be sent to a screen reader via a live region.">
     <strong>Live region notification</strong>
     <small>A dynamic notification (e.g., success message) must use a live region.</small>
   </li>
-  <li class="annotation-item" data-text="Screen readers must read this content aloud">
+  <li class="annotation-item" tabindex="0" data-text="Screen readers must read this content aloud">
     <strong>Screen readers must read aloud</strong>
     <small>Ensure this specific content is exposed to and read aloud by screen readers.</small>
   </li>
-   <li class="annotation-item" data-text="Screen readers must ignore this content">
+  <li class="annotation-item" tabindex="0" data-text="Screen readers must ignore this content">
     <strong>Screen readers must ignore</strong>
     <small>Ensure this specific content is ignored by screen readers.</small>
   </li>
 </ul>
 
-<script>
-  document.querySelectorAll('.annotation-item').forEach(item => {
-    item.onclick = function() {
-      const annotationText = this.getAttribute('data-text');
+<!-- No results message -->
+<div id="no-results" class="no-results hidden">No annotations match your search.</div>
 
-      // Send the selected text back to code.ts
-      parent.postMessage({
-        pluginMessage: {
-          type: 'create-annotation', 
-          text: annotationText       
-        }
-      }, '*');
-    };
+<script>
+  // Send selected text back to Figma plugin
+  function sendAnnotation(text) {
+    parent.postMessage(
+      { pluginMessage: { type: 'create-annotation', text } },
+      '*'
+    );
+  }
+
+  // Make items clickable and keyboard-accessible
+  document.querySelectorAll('.annotation-item').forEach(item => {
+    item.addEventListener('click', function () {
+      const annotationText = this.getAttribute('data-text');
+      sendAnnotation(annotationText);
+    });
+    item.addEventListener('keydown', function (e) {
+      // Activate on Enter/Space
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const annotationText = this.getAttribute('data-text');
+        sendAnnotation(annotationText);
+      }
+    });
   });
+
+  // --- Filtering logic ---
+  const searchInput = document.getElementById('annotation-search');
+  const clearBtn = document.getElementById('clear-search');
+  const resultsCountEl = document.getElementById('results-count');
+  const noResultsEl = document.getElementById('no-results');
+
+  const categoryHeaders = Array.from(document.querySelectorAll('.header-category'));
+  const lists = Array.from(document.querySelectorAll('.annotation-list'));
+  const items = Array.from(document.querySelectorAll('.annotation-item'));
+
+  function normalize(str) {
+    return (str || '').toLowerCase().trim();
+  }
+
+  function itemMatches(item, q) {
+    if (!q) return true;
+    const title = item.querySelector('strong')?.textContent || '';
+    const desc = item.querySelector('small')?.textContent || '';
+    const dataText = item.getAttribute('data-text') || '';
+    const haystack = `${title}\n${desc}\n${dataText}`.toLowerCase();
+    return haystack.includes(q);
+  }
+
+  function updateVisibility(query) {
+    const q = normalize(query);
+    let visibleCount = 0;
+
+    // Toggle items based on match
+    items.forEach(item => {
+      const match = itemMatches(item, q);
+      item.classList.toggle('hidden', !match);
+      if (match) visibleCount++;
+    });
+
+    // Toggle category headers based on whether their list has visible items
+    lists.forEach((ul, idx) => {
+      const anyVisible = Array.from(ul.querySelectorAll('.annotation-item'))
+        .some(li => !li.classList.contains('hidden'));
+      const header = categoryHeaders[idx];
+      if (header) header.classList.toggle('hidden', !anyVisible);
+      ul.classList.toggle('hidden', !anyVisible);
+    });
+
+    // Results meta + "no results" message
+    if (!q) {
+      resultsCountEl.textContent = 'Showing all annotations';
+      noResultsEl.classList.add('hidden');
+    } else {
+      resultsCountEl.textContent = `Showing ${visibleCount} matching annotation${visibleCount === 1 ? '' : 's'}`;
+      noResultsEl.classList.toggle('hidden', visibleCount > 0);
+    }
+  }
+
+  // Debounce for smoother typing
+  let debounceTimer = null;
+  searchInput.addEventListener('input', (e) => {
+    const value = e.target.value;
+    window.clearTimeout(debounceTimer);
+    debounceTimer = window.setTimeout(() => updateVisibility(value), 80);
+  });
+
+  // Clear button
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    searchInput.focus();
+    updateVisibility('');
+  });
+
+  // Initialize
+  updateVisibility('');
 </script>
