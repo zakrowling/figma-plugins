@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <style>
+     /* Hide scrollbar for Chrome, Safari and Opera */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    body {
+      font-family: "Montserrat", Helvetica, Arial, sans-serif;
+      padding: 15px 0;
+      margin: 0;
+      background-color: #ffffff;
+      height: 100vh;
+      box-sizing: border-box;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    
+    #header {
+      position: fixed;
+      top: 0;
+      padding: 8px 24px;
+      width: 100%;
+      background: #efefef;
+    }
+
+    #checklist-container {
+      overflow-y: auto;
+      height: 100%;
+      padding-right: 5px; /* Aesthetic space for the scrollbar */
+    }
+
+    #search-input {
+      width: 94%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box; 
+      font-size: 1em;
+      font-family: inherit; /* Inherit the Montserrat font */
+    }
+
+    #search-input:focus {
+        outline-color: #0079C8;
+    }
+
+    .checklist-section.first {
+      margin-top: 148px;
+    }
+
+    .checklist-section {
+      margin: 24px 24px 40px 24px;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: 1.2em;
+      padding-bottom: 5px;
+    }
+    
+    h3 {
+      color: #333333;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    label {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 0.9em;
+      line-height: 1.4;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 3px;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="checklist-container">
+
+    <div id="header">
+        <h2>Intopia Accessibility Checklist</h2>
+        <input type="text" id="search-input" placeholder="Search checklist items...">
+    </div>
+
+    <div class="checklist-section first">
+      <h3>Content Design and Presentation (Headings, Text, Tables)</h3>
+      <label>
+        <input type="checkbox" id="heading-h1-h2-use">
+        Headings and sub-headings (H1, H2, etc) are used appropriately to organise long sections of text.
+      </label>
+      <label>
+        <input type="checkbox" id="heading-hierarchy-visual-semantic">
+        Headings are designed to reflect their hierarchy visually and semantically.
+      </label>
+      <label>
+        <input type="checkbox" id="heading-proximity">
+        Headings are designed to have closer proximity to the information they describe than to the previous block of information.
+      </label>
+      <label>
+        <input type="checkbox" id="text-body-contrast">
+        Body text colours have a contrast ratio of at least 4.5:1 with the background colour.
+      </label>
+      <label>
+        <input type="checkbox" id="text-large-contrast">
+        Large text colours have a contrast ratio of at least 3:1 with the background colour.
+      </label>
+      <label>
+        <input type="checkbox" id="text-link-colour-alone">
+        Links in body text don't rely on colour alone to be seen.
+      </label>
+      <label>
+        <input type="checkbox" id="text-link-underline-perceivable">
+        Links in body text are underlined in HTML or are otherwise perceivable in apps (e.g. indicated with a '>').
+      </label>
+      <label>
+        <input type="checkbox" id="text-line-length">
+        Line length is designed to be 80 characters or less (even on large screens) with no horizontal scrolling required on small screens.
+      </label>
+      <label>
+        <input type="checkbox" id="text-left-aligned">
+        Text is left-aligned rather than centred, right-aligned, or fully justified.
+      </label>
+      <label>
+        <input type="checkbox" id="text-line-paragraph-spacing">
+        Line spacing is at least 0.5x the text height, paragraph spacing is at least 1.5x line spacing.
+      </label>
+      <label>
+        <input type="checkbox" id="text-font-size-min">
+        A minimum font size of at least 16px is used for body text as base font size (14px for small text).
+      </label>
+      <label>
+        <input type="checkbox" id="text-plain-fonts">
+        Plain fonts are used that have clearly differentiated characters if they could be confused visually.
+      </label>
+      <label>
+        <input type="checkbox" id="text-char-differentiation">
+        For example, clear differentiation between similarly shaped characters such as "Il1!i", "17", "+t4", "BS8", "O0Q".
+      </label>
+      <label>
+        <input type="checkbox" id="text-no-mixed-styles-colors">
+        Font styles and colours are not mixed in headings or blocks of text.
+      </label>
+      <label>
+        <input type="checkbox" id="text-no-cross-backgrounds">
+        Also try to ensure that text does not cross over two different backgrounds.
+      </label>
+      <label>
+        <input type="checkbox" id="text-logical-reading-order">
+        A logical reading order has been defined for blocks of text.
+      </label>
+      <label>
+        <input type="checkbox" id="text-lists-for-scanning">
+        Lists are used for groups of items to facilitate scanning.
+      </label>
+      <label>
+        <input type="checkbox" id="text-ordered-lists-sequence">
+        Ordered or numbered lists are only used if there is a meaningful sequence for the items.
+      </label>
+      <label>
+        <input type="checkbox" id="text-list-text-short">
+        List text is kept short and concise and preferably just one 'standard' line in length.
+      </label>
+      <label>
+        <input type="checkbox" id="table-headers-obvious">
+        Column and/or row headers are styled to be visually obvious.
+      </label>
+      <label>
+        <input type="checkbox" id="table-captions-provided">
+        Data tables have captions provided.
+      </label>
+      <label>
+        <input type="checkbox" id="table-simple-no-merged-cells">
+        Data tables are created as simple tables (no merged cells) whenever possible (see W3C Tables Tutorial).
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>Colour and Contrast</h3>
+      <label>
+        <input type="checkbox" id="contrast-body-text">
+        All body text has a contrast ratio of at least 4.5:1 with its background colour.
+      </label>
+      <label>
+        <input type="checkbox" id="contrast-large-text">
+        All large text has a contrast ratio of at least 3:1 with the background colour.
+      </label>
+      <label>
+        <input type="checkbox" id="contrast-text-over-images">
+        Text over images has a method for ensuring the contrast is always at least 4.5:1 when the content is resized or reflows (e.g. drop shadow, translucent panel, etc).
+      </label>
+      <label>
+        <input type="checkbox" id="contrast-buttons-forms">
+        Buttons and form inputs have a background or border colour with a contrast ratio of at least 3:1 with the page background.
+      </label>
+      <label>
+        <input type="checkbox" id="contrast-ui-components">
+        User interface components, including focus indicators, have a contrast ratio of at least 3:1 against adjacent colours.
+      </label>
+      <label>
+        <input type="checkbox" id="contrast-semi-opaque-focus">
+        When using semi-opaque components, ensure any focus indicator that they overlap retains a minimum contrast ratio of 3:1.
+      </label>
+      <label>
+        <input type="checkbox" id="colour-alone-hover-focus-feature">
+        Hover, focus and active element styles (e.g. menu items, tabs in panels) have a feature other than colour to distinguish them from other elements in the group.
+      </label>
+      <label>
+        <input type="checkbox" id="colour-alone-links-not-color">
+        Links in body text don't rely on colour alone to be seen (BP: use underline).
+      </label>
+      <label>
+        <input type="checkbox" id="colour-alone-important-info">
+        Colour alone isn't used to indicate important information or page elements.
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>Images and Icons</h3>
+      <label>
+        <input type="checkbox" id="image-no-text-in-images">
+        Unless essential, e.g. a logo, images of text should not be used. Use HTML and CSS instead.
+      </label>
+      <label>
+        <input type="checkbox" id="image-text-over-images-contrast">
+        Text over images has a method for ensuring the contrast is always at least 4.5:1 when the content is resized or reflows (e.g. drop shadow, translucent panel).
+      </label>
+      <label>
+        <input type="checkbox" id="icon-visual-labels">
+        Icons should have visual labels for clarity (e.g. Menu).
+      </label>
+      <label>
+        <input type="checkbox" id="icon-no-text-accessible-name">
+        Icons with no supporting text have a name provided for developers to apply as the 'accessible name'.
+      </label>
+      <label>
+        <input type="checkbox" id="image-alt-text-or-decorative">
+        Design-related images have alternative text provided for developers to add or are flagged as 'decorative' if they're just being added for visual appeal.
+      </label>
+      <label>
+        <input type="checkbox" id="image-button-alt-text-function">
+        Buttons implemented with images have alternative text matching their function.
+      </label>
+      <label>
+        <input type="checkbox" id="image-button-alt-text-match">
+        If the button image contains text (e.g. "submit"), the alternative text should match the image text.
+      </label>
+      <label>
+        <input type="checkbox" id="image-buttons-always-visual-text">
+        Buttons should always include visual text, not just images or icons, to ensure everyone will recognise their purpose.
+      </label>
+      <label>
+        <input type="checkbox" id="image-people-looking-in">
+        Ensure that images of people are positioned so that they are looking into the page to keep readers focused on the content.
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>User Interface and Links</h3>
+      <label>
+        <input type="checkbox" id="ui-instructions-no-sensory-only">
+        Any instructions that refer to shape, size or relative position in content also refer to the component's specific function or label.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-buttons-visually-identifiable">
+        Buttons in apps and web pages are clearly visually identifiable.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-focus-state">
+        All links, buttons and form inputs have a designed focus state.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-hover-state">
+        All links, buttons and form inputs have a designed hover state.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-touch-target-size">
+        All links (except in-line links), buttons and form inputs have a touch target size of at least $24 \times 24$px.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-touch-target-separation">
+        All touch targets should also be separated by $8dp/16px$ of space.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-consistent-elements">
+        Elements that have the same function across the website or app are represented consistently.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-buttons-vs-links-correct-use">
+        Buttons are used to initiate actions (e.g. submit a form, open a modal); links to go to a new destination in the page or on the web.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-button-text-describes-action">
+        Button text describes the action performed by the button.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-multiple-find-methods">
+        More than one method of finding content in a website is provided, e.g. menus, site maps, search, breadcrumbs.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-hover-focus-info-persists">
+        Information revealed on hover or focus persists until the user dismisses it.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-mouse-free-movement">
+        Users can move their mouse freely into information revealed on mouse hover.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-keyboard-focus-visible">
+        Ensure any item receiving keyboard focus is always at least partially visible.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-reduce-focus-obscured">
+        Reduce the degree and frequency that focusable items are obscured wherever possible.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-motion-tasks-customisable">
+        Tasks that rely on device motion or user motion are customisable and accessible.
+      </label>
+      <label>
+        <input type="checkbox" id="ui-pointer-alternative-dragging">
+        Provide a pointer alternative to any action that involves dragging.
+      </label>
+      <label>
+        <input type="checkbox" id="link-in-text-underlined">
+        All links (within blocks of text) are underlined and don't rely solely on colour to be visually identified.
+      </label>
+      <label>
+        <input type="checkbox" id="link-in-menu-non-underlined">
+        Links in menus can be non-underlined as the context provides the visual clue.
+      </label>
+      <label>
+        <input type="checkbox" id="link-document-file-type-size">
+        Links to documents provide the file type and size as part of the link text.
+      </label>
+      <label>
+        <input type="checkbox" id="link-clearly-indicate-destination">
+        Links should clearly indicate where they will take the user.
+      </label>
+      <label>
+        <input type="checkbox" id="link-text-reflects-title">
+        Link text should reflect the target page's title and H1 heading.
+      </label>
+      <label>
+        <input type="checkbox" id="link-new-window-tab-notify">
+        Links which open in a new browser window or tab have an appropriate icon (with alt text) or text notifying people as part of the link.
+      </label>
+      <label>
+        <input type="checkbox" id="link-leave-app-warning">
+        Links which leave a mobile app (e.g. to open a web page in a browser) have a warning.
+      </label>
+      <label>
+        <input type="checkbox" id="link-menu-consistent-order">
+        Navigation links in menus are kept in a consistent order throughout the website or app with consistent names.
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>Carousels, Indicators, and Layout</h3>
+      <label>
+        <input type="checkbox" id="carousel-no-autoplay">
+        Carousel or slideshow-style content does not auto-play.
+      </label>
+      <label>
+        <input type="checkbox" id="carousel-controls-and-indication">
+        Carousel or slideshow-style content has user controls to stop and start, and an indication of how many items are part of the feature.
+      </label>
+      <label>
+        <input type="checkbox" id="indicator-multi-step-progress">
+        An indicator tells users where they are in multi-step processes.
+      </label>
+      <label>
+        <input type="checkbox" id="gesture-simple-with-alternatives">
+        Pointer gestures are kept simple and don't require specific paths or multiple fingers. If they do, then they have alternative means for operating the content.
+      </label>
+      <label>
+        <input type="checkbox" id="layout-adapt-320px-screens">
+        The layout can adapt to screens from 320px wide up to desktop widths, in portrait or landscape orientations.
+      </label>
+      <label>
+        <input type="checkbox" id="layout-zoom-400-no-scroll">
+        The layout can be adapted to zoom levels of 100% to 400% in the browser without having to scroll both horizontally and vertically.
+      </label>
+      <label>
+        <input type="checkbox" id="layout-linear-sequence-order">
+        Content and information is placed on the page in an order which makes sense when read in a linear sequence (left to right, top to bottom in English).
+      </label>
+      <label>
+        <input type="checkbox" id="layout-skip-to-content-link">
+        A skip-to-content link style is provided for HTML pages with heading blocks and/or site menus (acceptable to only appear visually during keyboard navigation).
+      </label>
+      <label>
+        <input type="checkbox" id="layout-modal-close-first">
+        For modals and app overlays, the close button is the first element encountered when navigating by tabbing or swiping.
+      </label>
+      <label>
+        <input type="checkbox" id="layout-no-fixed-orientation">
+        Orientation is not fixed to portrait (or landscape) mode to accommodate people who can't turn their device.
+      </label>
+      <label>
+        <input type="checkbox" id="layout-help-consistent-location">
+        Keep help mechanisms in a consistent location throughout the site.
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>Forms</h3>
+      <label>
+        <input type="checkbox" id="form-input-visible-label">
+        Every input has a visible label close to its form element; the label is clear and descriptive and includes any format requirements e.g. date format or character limit.
+      </label>
+      <label>
+        <input type="checkbox" id="form-no-placeholder-as-label">
+        Don't use place-holder text as labels or to provide hint text.
+      </label>
+      <label>
+        <input type="checkbox" id="form-information-re-entry-autopop">
+        Information previously entered that must be entered again is either auto-populated or available to select.
+      </label>
+      <label>
+        <input type="checkbox" id="form-required-fields-not-color">
+        Required fields are clearly communicated, and don't rely on colour alone.
+      </label>
+      <label>
+        <input type="checkbox" id="form-mark-optional-fields">
+        Additionally, mark optional fields "(optional)".
+      </label>
+      <label>
+        <input type="checkbox" id="form-error-messages-not-color-alone">
+        Error messages have a consistent style which does not rely on colour alone, e.g. preceded by a warning icon such as '$\bigtriangleup$' with appropriate alt-text.
+      </label>
+      <label>
+        <input type="checkbox" id="form-error-message-clear-recovery">
+        Error message text makes it clear what the issue is, where it is, and how to recover from it.
+      </label>
+      <label>
+        <input type="checkbox" id="form-undo-cancel-legal-finance">
+        Undo or Cancel options are available for forms requesting legal or financial data.
+      </label>
+      <label>
+        <input type="checkbox" id="form-complex-instructions-help">
+        Complex forms have instructions or help provided.
+      </label>
+      <label>
+        <input type="checkbox" id="form-complex-landing-page-info">
+        Complex forms have a landing or starting page telling people what information they will need to complete the form before they start.
+      </label>
+      <label>
+        <input type="checkbox" id="form-buttons-input-contrast">
+        Buttons and form inputs have a background or border colour with a contrast ratio of at least 3:1 with the page background.
+      </label>
+      <label>
+        <input type="checkbox" id="form-vertically-stacked">
+        Keep forms vertically stacked (except for related fields which could be side by side) to help low vision users.
+      </label>
+      <label>
+        <input type="checkbox" id="form-divide-into-smaller-steps">
+        Divide long forms into multiple smaller steps where possible.
+      </label>
+      <label>
+        <input type="checkbox" id="form-indicator-multi-step">
+        Provide an indicator to tell users where they are within multi-step forms.
+      </label>
+      <label>
+        <input type="checkbox" id="form-auto-save-progress">
+        Auto-save data / progress or prevent timeouts if the user has been inactive for x amount of time.
+      </label>
+      <label>
+        <input type="checkbox" id="form-allow-manual-save">
+        Allow users to save their progress at any point in time without losing their data.
+      </label>
+      <label>
+        <input type="checkbox" id="form-submission-confirmation">
+        Confirmation of submission is provided when successful and no errors exist.
+      </label>
+      <label>
+        <input type="checkbox" id="form-no-cognitive-auth">
+        A cognitive function test is not used as an authentication process.
+      </label>
+      <label>
+        <input type="checkbox" id="form-cognitive-auth-alternative">
+        If a cognitive function test is used as an authentication process, an alternative test or helping mechanism is available.
+      </label>
+      <label>
+        <input type="checkbox" id="form-captcha-avoided">
+        CAPTCHA should be avoided unless considered essential for security reasons.
+      </label>
+      <label>
+        <input type="checkbox" id="form-captcha-no-visual-puzzles">
+        Any use of CAPTCHA must not rely on visual puzzles, image matching, or distorted audio.
+      </label>
+    </div>
+    
+    <div class="checklist-section">
+      <h3>Content Readability and Understandability</h3>
+      <label>
+        <input type="checkbox" id="readability-plain-font-distinguishable">
+        Use a plain font that has distinctly different and distinguishable characters, e.g. for "Il1!i", "17", "$+t4$", "BS8", "O0Q", etc.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-minimise-italics-caps">
+        Minimise use of italics and ALL-CAPS. Both can be difficult to recognise and read for some people.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-underline-for-links">
+        Underline is reserved for links and not used for emphasis.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-text-left-aligned">
+        Text is left-aligned rather than centred, justified, or right aligned.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-use-subheadings">
+        Use appropriate sub-headings to divide long sections of content.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-clear-link-text">
+        Provide clear and concise link text that clearly indicates the link destination; avoid the use of generic links such as 'click here' or 'read more'.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-body-links-underlined">
+        Links in body text are always underlined.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-no-sensory-alone">
+        Don't refer to sensory characteristics alone for instructions or conveying information, e.g. shape, colour, size, visual location, orientation, or sound.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-use-list-elements">
+        Use list elements for lists; avoid inline lists.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-numbered-lists-only-if-order">
+        Only use numbered lists if the order matters.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-write-in-plain-language">
+        Write in plain language.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-aids-translation">
+        This also aids translation.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-expand-acronyms">
+        Expand acronyms on first use on any web page or in a document.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-abbr-element-note">
+        Using the <abbr> element (tag) usually only benefits screen reader users, not visual readers.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-avoid-jargon">
+        Avoid industry jargon and marketing speak.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-avoid-idioms">
+        Avoid idioms and metaphors.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-use-inclusive-language">
+        Use inclusive language and terms.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-clear-heading-structure">
+        Provide clear heading structure for each page - use H1 for the main heading and H2, H3 etc for subheadings and sub-sub-headings.
+      </label>
+      <label>
+        <input type="checkbox" id="readability-heading-text-proximity">
+        Position heading text closer to the content it relates to than the preceding content.
+      </label>
+    </div>
+
+  </div>
+
+<script>
+  // Plugin UI Logic for Checkbox Persistence
+  const figma = parent; 
+  let checklistStatus = {};
+
+  // Function to send the current status to code.ts for saving
+  function saveStatus() {
+    figma.postMessage({
+      type: 'save-status',
+      status: checklistStatus
+    });
+  }
+  
+  // --- Search Filtering Logic ---
+  function filterChecklist() {
+    // Get the search term and convert to lowercase for case-insensitive matching
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    // Select all checklist items (label elements)
+    const checklistItems = document.querySelectorAll('#checklist-container label');
+
+    checklistItems.forEach(label => {
+      const text = label.textContent.toLowerCase();
+      
+      // If the item text includes the search term, show it (set display to flex), otherwise hide it (set display to none).
+      if (text.includes(searchTerm)) {
+        label.style.display = 'flex'; 
+      } else {
+        label.style.display = 'none'; 
+      }
+    });
+
+    // Now, handle the visibility of the section headers (h3)
+    const sections = document.querySelectorAll('.checklist-section');
+    sections.forEach(section => {
+      const header = section.querySelector('h3');
+      // Find all direct children labels within the section that are currently visible (not explicitly set to 'none' by the search)
+      const visibleLabels = section.querySelectorAll('label:not([style*="none"])').length;
+
+      if (header) {
+        // Show the header if the search term is empty OR if there is at least one visible checklist item in the section
+        header.style.display = (searchTerm === '' || visibleLabels > 0) ? 'block' : 'none';
+      }
+      
+      // Also ensure the entire section div is visible if the header is visible
+      section.style.display = (header && header.style.display === 'block') ? 'block' : 'none';
+    });
+  }
+
+  // Attach filter function to search input on keyup
+  document.getElementById('search-input').addEventListener('keyup', filterChecklist);
+
+
+  // --- Persistence Logic ---
+
+  // Event listener for all checkbox changes
+  document.getElementById('checklist-container').addEventListener('change', (event) => {
+    if (event.target.type === 'checkbox') {
+      const checkboxId = event.target.id;
+      // Update the status object
+      checklistStatus[checkboxId] = event.target.checked; 
+      // Save the status to Figma's client storage
+      saveStatus();
+    }
+  });
+
+  // Listen for messages from code.ts (to load the saved status)
+  window.onmessage = (event) => {
+    const msg = event.data.pluginMessage;
+    if (msg.type === 'load-status') {
+      const savedStatus = msg.status;
+      // Check if savedStatus is an object and not null
+      if (typeof savedStatus === 'object' && savedStatus !== null) {
+          checklistStatus = savedStatus; // Overwrite the status with the saved data
+          
+          // Apply the loaded status to the checkboxes in the UI
+          for (const id in savedStatus) {
+            const checkbox = document.getElementById(id);
+            if (checkbox) {
+              checkbox.checked = savedStatus[id];
+            }
+          }
+      }
+    }
+  };
+</script>
+</body>
+</html>
